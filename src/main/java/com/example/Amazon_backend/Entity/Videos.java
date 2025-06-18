@@ -1,14 +1,12 @@
 package com.example.Amazon_backend.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.net.URI;
 
 @Entity
-@Table(name = "videos")
+@Table(name = "VIDEOS",schema = "VIDEOS")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +15,8 @@ import java.net.URI;
 public class Videos {
 
     @Id
-    private String videoId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long videoId;
 
     private String title;
 

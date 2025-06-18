@@ -18,7 +18,7 @@ public class HealthCheckController {
 
     @GetMapping("/health-check")
     public ResponseEntity<String> healthCheck(){
-        throw new CustomException("Server Health is not Good", HttpStatus.BAD_REQUEST);
+     return ResponseEntity.ok("Ok");
     }
 
 
