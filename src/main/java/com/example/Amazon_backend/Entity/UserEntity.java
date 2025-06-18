@@ -27,7 +27,7 @@ public class UserEntity {
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private UserAddressEntity userAddressEntity;
+    private UserAddressEntity userAddress;
 
 
 }
