@@ -1,7 +1,6 @@
 package com.example.Amazon_backend.Controller;
 
 import com.example.Amazon_backend.Exception.CustomException;
-import com.example.Amazon_backend.Response.ErrorResponse;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;

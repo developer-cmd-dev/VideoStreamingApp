@@ -5,6 +5,9 @@ import com.example.Amazon_backend.DTO.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "USERS")
 @Getter
@@ -30,6 +33,10 @@ public class UserEntity {
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private UserAddressEntity userAddress;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id_FK", referencedColumnName = "id")
+    private List<Order> orders = new ArrayList<>();
 
 
     public UserDTO toDTO(){
