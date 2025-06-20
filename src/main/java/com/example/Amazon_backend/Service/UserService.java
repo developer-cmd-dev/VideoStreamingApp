@@ -19,24 +19,47 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public UserEntity saveUser(UserEntity user){
+    public UserEntity saveUser(UserEntity user) {
         return repository.save(user);
     }
 
-    public Optional<UserEntity> getUserById(Long id){
+    public Optional<UserEntity> getUserById(Long id) {
         log.info(id.toString());
-      return repository.findById(id);
+        return repository.findById(id);
     }
 
 
-    public UserEntity createOrder(Long id, List<Order> orders){
-        try {
-            UserEntity user = repository.findById(id).orElse(null);
-            if(user!=null) user.setOrders(orders);
+    public UserEntity createOrder(Long id, List<Order> orders) {
+        UserEntity user = repository.findById(id).orElse(null);
+        if (user != null) {
+            for (Order order : orders) {
+                user.getOrders().add(order);
+                user.setOrders(user.getOrders());
+            }
             return repository.save(user);
-        } catch (RuntimeException e) {
+        }else{
             throw new CustomException("User not found", HttpStatus.NOT_FOUND);
+
         }
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
