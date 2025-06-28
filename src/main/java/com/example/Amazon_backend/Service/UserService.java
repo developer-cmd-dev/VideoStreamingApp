@@ -24,58 +24,10 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public List<UserEntity> saveUser(List<UserEntity> user) {
-       List<UserEntity> response =  user.stream().map(x->{
-           return repository.save(x);
-        }).toList();
-        return response;
+
+    public UserDTO saveUser(UserEntity data){
+        return repository.save(data).toDTO();
     }
-
-    public Optional<UserEntity> getUserById(Long id) {
-        log.info(id.toString());
-        return repository.findById(id);
-    }
-
-
-    public UserEntity createOrder(Long id, List<Order> orders) {
-        UserEntity user = repository.findById(id).orElse(null);
-        if (user != null) {
-            for (Order order : orders) {
-                user.getOrders().add(order);
-                user.setOrders(user.getOrders());
-            }
-            return repository.save(user);
-        }else{
-            throw new CustomException("User not found", HttpStatus.NOT_FOUND);
-
-        }
-
-
-    }
-
-    public FindUserDto getUserByName(String name, Pageable pageable){
-        Page<UserEntity> response = repository.findUserEntityByUsernameStartsWith(name, pageable);
-        List<UserDTO> userDTOS = response.getContent().stream().map(x->x.toDTO()).toList();
-        FindUserDto dto = new FindUserDto();
-        dto.setTotalPages(response.getTotalPages());
-        dto.setSearchResponse(userDTOS);
-        return dto;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
