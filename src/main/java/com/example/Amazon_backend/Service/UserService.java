@@ -25,11 +25,15 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository repository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
+    private final UserRepository repository;
+    public final PasswordEncoder passwordEncoder;
+
+
+    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
+        this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public UserDTO saveUser(UserEntity data){
         data.setPassword(passwordEncoder.encode(data.getPassword()));

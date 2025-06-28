@@ -18,13 +18,15 @@ import java.io.IOException;
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JWTUtil jwtUtil;
 
+    private final AuthenticationManager authenticationManager;
 
+    private final JWTUtil jwtUtil;
 
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -36,11 +38,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         LoginRequest loginRequest = objectMapper.readValue(request.getInputStream(),LoginRequest.class);
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword());
-        Authentication authentication = authenticationManager.authenticate(authToken);
+       Authentication authentication = authenticationManager.authenticate(authToken);
 
         if(authentication.isAuthenticated()){
             String token = jwtUtil.generateToken(authentication.getName(),15);
-            response.setHeader("Authorization",token);
+            response.setHeader("Authorization","Bearer "+token);
         }
     }
 }
