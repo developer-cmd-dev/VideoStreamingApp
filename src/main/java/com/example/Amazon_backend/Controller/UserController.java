@@ -31,6 +31,11 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<String> login(){
+        return ResponseEntity.ok("User Authenticated");
+    }
+
 
 
 

@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository repository;
@@ -33,6 +36,8 @@ public class UserService {
         return repository.save(data).toDTO();
     }
 
-
-
+    @Override
+    public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findUserEntityByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
+    }
 }
