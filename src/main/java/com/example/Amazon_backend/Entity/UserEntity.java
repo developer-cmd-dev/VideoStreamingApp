@@ -35,6 +35,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    private String role="USER";
+
 
     public UserDTO toDTO(){
         return new UserDTO(this);
