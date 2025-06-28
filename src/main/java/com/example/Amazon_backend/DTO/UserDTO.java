@@ -17,14 +17,9 @@ public class UserDTO {
 
     private String email;
 
-    private String userAddress;
-
-    private List<Order> orders = new ArrayList<>();
 
     public UserDTO(UserEntity userEntity) {
         this.username = userEntity.getUsername();
         this.email = userEntity.getEmail();
-        this.userAddress = userEntity.getUserAddress()!=null? userEntity.getUserAddress().getCity():null;
-        this.orders = userEntity.getOrders();
     }
 }

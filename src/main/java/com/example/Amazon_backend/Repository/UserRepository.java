@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
     Page<UserEntity> findUserEntityByUsernameStartsWith(String value, Pageable page);
+    UserEntity findUserEntityByUsername(String name);
 }
